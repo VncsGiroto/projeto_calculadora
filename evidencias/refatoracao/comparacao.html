@@ -1,0 +1,116 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><title>Refatoração — FinançApp</title>
+<style>body{margin:40px;background:#f3f6f8;color:#182b3a;font:16px system-ui}section{display:flex;gap:20px}article{flex:1;background:white;padding:24px;border-top:5px solid #147650}pre{background:white;padding:24px;white-space:pre-wrap;font:14px Consolas,monospace}h1{font-size:32px}p{line-height:1.6}</style>
+<h1>Refatoração com comportamento preservado</h1><p>FinançApp · implementação inicial funcional → extração de métodos e simplificação do despacho.</p>
+<section><article><h2>Antes</h2><p>Etapa: inicial | testes: 24 | falhas: 0 | erros: 0
+</p><p>Tag v1.0-inicial · decisões com if/else.</p></article><article><h2>Depois</h2><p>Etapa: refatoracao | testes: 24 | falhas: 0 | erros: 0
+</p><p>Branch Refatoracao · switch e métodos extraídos.</p></article></section>
+<p>Resultados extraídos dos resumos reais da suíte. Os cenários e as asserções foram mantidos; apenas a autoria no JavaDoc foi preenchida. Abaixo: diff produzido pelo Git.</p><pre>diff --git a/src/main/java/calculadora/Calculadora.java b/src/main/java/calculadora/Calculadora.java
+index 235f076..573ca3b 100644
+--- a/src/main/java/calculadora/Calculadora.java
++++ b/src/main/java/calculadora/Calculadora.java
+@@ -2,10 +2,14 @@ package calculadora;
+ 
+ /**
+  * Realiza opera&#231;&#245;es b&#225;sicas com operandos inteiros e resultado real.
+- * @author Equipe acad&#234;mica Finan&#231;App
+- * @version 1.0
++ * @author Vinicius Giroto Francischinelli
++ * @version 1.1
+  */
+ public class Calculadora {
++    /** Mensagem comum aos operadores ausentes e n&#227;o suportados. */
++    private static final String MENSAGEM_OPERACAO_INVALIDA =
++            &quot;Opera&#231;&#227;o inv&#225;lida. Use +, -, * ou /.&quot;;
++
+     /** Cria uma calculadora sem estado. */
+     public Calculadora() { }
+ 
+@@ -19,23 +23,69 @@ public class Calculadora {
+      * @throws IllegalArgumentException se o operador for nulo ou n&#227;o suportado
+      */
+     public double calc(int a, int b, String op) {
+-        if (op == null) {
+-            throw new IllegalArgumentException(&quot;Opera&#231;&#227;o inv&#225;lida. Use +, -, * ou /.&quot;);
++        validarOperador(op);
++        // Cada opera&#231;&#227;o mant&#233;m a convers&#227;o anterior &#224; conta da vers&#227;o inicial.
++        return switch (op) {
++            case &quot;+&quot; -&gt; somar(a, b);
++            case &quot;-&quot; -&gt; subtrair(a, b);
++            case &quot;*&quot; -&gt; multiplicar(a, b);
++            case &quot;/&quot; -&gt; dividir(a, b);
++            default -&gt; throw new IllegalArgumentException(MENSAGEM_OPERACAO_INVALIDA);
++        };
++    }
++
++    /**
++     * Rejeita aus&#234;ncia de operador antes do despacho por switch.
++     * @param operador s&#237;mbolo informado
++     * @throws IllegalArgumentException se o operador for nulo
++     */
++    private void validarOperador(String operador) {
++        if (operador == null) {
++            throw new IllegalArgumentException(MENSAGEM_OPERACAO_INVALIDA);
+         }
+-        // Converte antes da conta para evitar overflow na aritm&#233;tica int.
+-        if (op.equals(&quot;+&quot;)) {
+-            return (double) a + b;
+-        } else if (op.equals(&quot;-&quot;)) {
+-            return (double) a - b;
+-        } else if (op.equals(&quot;*&quot;)) {
+-            return (double) a * b;
+-        } else if (op.equals(&quot;/&quot;)) {
+-            if (b == 0) {
+-                throw new ArithmeticException(&quot;N&#227;o &#233; poss&#237;vel dividir por zero.&quot;);
+-            }
+-            return (double) a / b;
+-        } else {
+-            throw new IllegalArgumentException(&quot;Opera&#231;&#227;o inv&#225;lida. Use +, -, * ou /.&quot;);
++    }
++
++    /**
++     * Soma com convers&#227;o pr&#233;via para double.
++     * @param primeiro primeiro operando
++     * @param segundo segundo operando
++     * @return soma dos operandos
++     */
++    private double somar(int primeiro, int segundo) {
++        return (double) primeiro + segundo;
++    }
++
++    /**
++     * Subtrai com convers&#227;o pr&#233;via para double.
++     * @param primeiro minuendo
++     * @param segundo subtraendo
++     * @return diferen&#231;a entre os operandos
++     */
++    private double subtrair(int primeiro, int segundo) {
++        return (double) primeiro - segundo;
++    }
++
++    /**
++     * Multiplica sem overflow intermedi&#225;rio de int.
++     * @param primeiro primeiro fator
++     * @param segundo segundo fator
++     * @return produto em precis&#227;o double
++     */
++    private double multiplicar(int primeiro, int segundo) {
++        return (double) primeiro * segundo;
++    }
++
++    /**
++     * Divide preservando a parte fracion&#225;ria.
++     * @param dividendo valor a dividir
++     * @param divisor valor pelo qual dividir
++     * @return quociente em precis&#227;o double
++     * @throws ArithmeticException se o divisor for zero
++     */
++    private double dividir(int dividendo, int divisor) {
++        if (divisor == 0) {
++            throw new ArithmeticException(&quot;N&#227;o &#233; poss&#237;vel dividir por zero.&quot;);
+         }
++        return (double) dividendo / divisor;
+     }
+ }
+</pre></html>
+
+
