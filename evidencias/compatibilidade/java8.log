@@ -1,0 +1,78 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------< br.com.financapp:projeto_calculadora >----------------
+[INFO] Building Projeto Calculadora — FinançApp 1.0.0
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.2.0:clean (default-clean) @ projeto_calculadora ---
+[INFO] Deleting D:\UX UI\ATIVIDADE\projeto_calculadora\target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ projeto_calculadora ---
+[INFO] skip non existing resourceDirectory D:\UX UI\ATIVIDADE\projeto_calculadora\src\main\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ projeto_calculadora ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 3 source files with javac [debug release 8] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ projeto_calculadora ---
+[INFO] skip non existing resourceDirectory D:\UX UI\ATIVIDADE\projeto_calculadora\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ projeto_calculadora ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug release 8] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.2:test (default-test) @ projeto_calculadora ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running calculadora.TesteCalculadora
+Entrada: 5 [null] 2 | esperado: Operação inválida. Use +, -, * ou /. | obtido: Operação inválida. Use +, -, * ou /.
+Entrada: 5 [] 2 | esperado: Operação inválida. Use +, -, * ou /. | obtido: Operação inválida. Use +, -, * ou /.
+Entrada: 5 [%] 2 | esperado: Operação inválida. Use +, -, * ou /. | obtido: Operação inválida. Use +, -, * ou /.
+Entrada: 5 [abc] 2 | esperado: Operação inválida. Use +, -, * ou /. | obtido: Operação inválida. Use +, -, * ou /.
+Entrada: 5 [ ] 2 | esperado: Operação inválida. Use +, -, * ou /. | obtido: Operação inválida. Use +, -, * ou /.
+Entrada: 5 [ + ] 2 | esperado: Operação inválida. Use +, -, * ou /. | obtido: Operação inválida. Use +, -, * ou /.
+Entrada: 10 + 5 | esperado: 15.0 | obtido: 15.0
+Entrada: 10 - 5 | esperado: 5.0 | obtido: 5.0
+Entrada: 10 * 5 | esperado: 50.0 | obtido: 50.0
+Entrada: 10 / 5 | esperado: 2.0 | obtido: 2.0
+Entrada: 5 / 2 | esperado: 2.5 | obtido: 2.5
+Entrada: -7 + 3 | esperado: -4.0 | obtido: -4.0
+Entrada: -7 - 3 | esperado: -10.0 | obtido: -10.0
+Entrada: -7 * 3 | esperado: -21.0 | obtido: -21.0
+Entrada: -9 / 2 | esperado: -4.5 | obtido: -4.5
+Entrada: 0 / 3 | esperado: 0.0 | obtido: 0.0
+Entrada: 0 * 5 | esperado: 0.0 | obtido: 0.0
+Entrada: 2147483647 + 1 | esperado: 2.147483648E9 | obtido: 2.147483648E9
+Entrada: -2147483648 - 1 | esperado: -2.147483649E9 | obtido: -2.147483649E9
+Entrada: 2147483647 * 2 | esperado: 4.294967294E9 | obtido: 4.294967294E9
+Entrada: -2147483648 / -1 | esperado: 2.147483648E9 | obtido: 2.147483648E9
+Teste funcional: erros seguidos de 5 / 2 | esperado: continuidade e 2.5 | obtido:
+Calculadora FinançApp | formato: inteiro operador inteiro | sair
+Erro: Não é possível dividir por zero.
+Erro: Operação inválida. Use +, -, * ou /.
+Entrada inválida. Informe inteiros entre -2147483648 e 2147483647.
+Entrada inválida. Informe inteiros entre -2147483648 e 2147483647.
+Entrada inválida. Exemplo: 5 / 2
+Resultado: 2.5
+Calculadora encerrada.
+
+Entrada: 5 / 0 | esperado: Não é possível dividir por zero. | obtido: Não é possível dividir por zero.
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.377 s -- in calculadora.TesteCalculadora
+[INFO] 
+[INFO] Results:
+[INFO] 
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ projeto_calculadora ---
+[INFO] Building jar: D:\UX UI\ATIVIDADE\projeto_calculadora\target\projeto_calculadora-1.0.0.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.697 s
+[INFO] Finished at: 2026-10-31T12:47:51-03:00
+[INFO] ------------------------------------------------------------------------

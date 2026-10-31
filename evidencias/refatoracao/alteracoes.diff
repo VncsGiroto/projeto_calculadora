@@ -1,5 +1,5 @@
 diff --git a/src/main/java/calculadora/Calculadora.java b/src/main/java/calculadora/Calculadora.java
-index 235f076..573ca3b 100644
+index 235f076..1de6236 100644
 --- a/src/main/java/calculadora/Calculadora.java
 +++ b/src/main/java/calculadora/Calculadora.java
 @@ -2,10 +2,14 @@ package calculadora;
@@ -27,13 +27,13 @@ index 235f076..573ca3b 100644
 -            throw new IllegalArgumentException("Operação inválida. Use +, -, * ou /.");
 +        validarOperador(op);
 +        // Cada operação mantém a conversão anterior à conta da versão inicial.
-+        return switch (op) {
-+            case "+" -> somar(a, b);
-+            case "-" -> subtrair(a, b);
-+            case "*" -> multiplicar(a, b);
-+            case "/" -> dividir(a, b);
-+            default -> throw new IllegalArgumentException(MENSAGEM_OPERACAO_INVALIDA);
-+        };
++        switch (op) {
++            case "+": return somar(a, b);
++            case "-": return subtrair(a, b);
++            case "*": return multiplicar(a, b);
++            case "/": return dividir(a, b);
++            default: throw new IllegalArgumentException(MENSAGEM_OPERACAO_INVALIDA);
++        }
 +    }
 +
 +    /**

@@ -13,14 +13,20 @@
 [INFO] 
 [INFO] --- compiler:3.13.0:compile (default-compile) @ projeto_calculadora ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 3 source files with javac [debug release 21] to target\classes
+[INFO] Compiling 3 source files with javac [debug release 8] to target\classes
+[WARNING] source value 8 is obsolete and will be removed in a future release
+[WARNING] target value 8 is obsolete and will be removed in a future release
+[WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO] 
 [INFO] --- resources:3.3.1:testResources (default-testResources) @ projeto_calculadora ---
 [INFO] skip non existing resourceDirectory D:\UX UI\ATIVIDADE\projeto_calculadora\src\test\resources
 [INFO] 
 [INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ projeto_calculadora ---
 [INFO] Recompiling the module because of changed dependency.
-[INFO] Compiling 1 source file with javac [debug release 21] to target\test-classes
+[INFO] Compiling 1 source file with javac [debug release 8] to target\test-classes
+[WARNING] source value 8 is obsolete and will be removed in a future release
+[WARNING] target value 8 is obsolete and will be removed in a future release
+[WARNING] To suppress warnings about obsolete options, use -Xlint:-options.
 [INFO] 
 [INFO] --- surefire:3.5.2:test (default-test) @ projeto_calculadora ---
 [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
@@ -61,7 +67,7 @@ Resultado: 2.5
 Calculadora encerrada.
 
 Entrada: 5 / 0 | esperado: Não é possível dividir por zero. | obtido: Não é possível dividir por zero.
-[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.252 s -- in calculadora.TesteCalculadora
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.240 s -- in calculadora.TesteCalculadora
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -73,6 +79,6 @@ Entrada: 5 / 0 | esperado: Não é possível dividir por zero. | obtido: Não é
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.189 s
-[INFO] Finished at: 2026-10-31T12:29:54-03:00
+[INFO] Total time:  5.364 s
+[INFO] Finished at: 2026-10-31T12:48:39-03:00
 [INFO] ------------------------------------------------------------------------

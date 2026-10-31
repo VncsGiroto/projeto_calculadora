@@ -3,9 +3,9 @@
 <h1>Refatoração com comportamento preservado</h1><p>FinançApp · implementação inicial funcional → extração de métodos e simplificação do despacho.</p>
 <section><article><h2>Antes</h2><p>Etapa: inicial | testes: 24 | falhas: 0 | erros: 0
 </p><p>Tag v1.0-inicial · decisões com if/else.</p></article><article><h2>Depois</h2><p>Etapa: refatoracao | testes: 24 | falhas: 0 | erros: 0
-</p><p>Branch Refatoracao · switch e métodos extraídos.</p></article></section>
-<p>Resultados extraídos dos resumos reais da suíte. Os cenários e as asserções foram mantidos; apenas a autoria no JavaDoc foi preenchida. Abaixo: diff produzido pelo Git.</p><pre>diff --git a/src/main/java/calculadora/Calculadora.java b/src/main/java/calculadora/Calculadora.java
-index 235f076..573ca3b 100644
+</p><p>Branch Refatoracao · switch compatível com Java 8 e métodos extraídos.</p></article></section>
+<p>Resultados extraídos dos resumos reais da suíte. Os cenários e as asserções foram mantidos; autoria e APIs de UTF-8 foram adaptadas. Abaixo: diff produzido pelo Git.</p><pre>diff --git a/src/main/java/calculadora/Calculadora.java b/src/main/java/calculadora/Calculadora.java
+index 235f076..1de6236 100644
 --- a/src/main/java/calculadora/Calculadora.java
 +++ b/src/main/java/calculadora/Calculadora.java
 @@ -2,10 +2,14 @@ package calculadora;
@@ -33,13 +33,13 @@ index 235f076..573ca3b 100644
 -            throw new IllegalArgumentException(&quot;Opera&#231;&#227;o inv&#225;lida. Use +, -, * ou /.&quot;);
 +        validarOperador(op);
 +        // Cada opera&#231;&#227;o mant&#233;m a convers&#227;o anterior &#224; conta da vers&#227;o inicial.
-+        return switch (op) {
-+            case &quot;+&quot; -&gt; somar(a, b);
-+            case &quot;-&quot; -&gt; subtrair(a, b);
-+            case &quot;*&quot; -&gt; multiplicar(a, b);
-+            case &quot;/&quot; -&gt; dividir(a, b);
-+            default -&gt; throw new IllegalArgumentException(MENSAGEM_OPERACAO_INVALIDA);
-+        };
++        switch (op) {
++            case &quot;+&quot;: return somar(a, b);
++            case &quot;-&quot;: return subtrair(a, b);
++            case &quot;*&quot;: return multiplicar(a, b);
++            case &quot;/&quot;: return dividir(a, b);
++            default: throw new IllegalArgumentException(MENSAGEM_OPERACAO_INVALIDA);
++        }
 +    }
 +
 +    /**
@@ -112,5 +112,6 @@ index 235f076..573ca3b 100644
      }
  }
 </pre></html>
+
 
 

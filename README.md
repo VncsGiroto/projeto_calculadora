@@ -75,7 +75,7 @@ Limite numérico: `double` tem precisão finita. Produtos grandes e algumas fra�
 
 | Tecnologia | Versão | Utilização |
 | --- | --- | --- |
-| Java / JDK | 21 (mínimo) | Linguagem, compilação e JavaDoc |
+| Java / JDK | 8 (mínimo) | Linguagem, compilação e JavaDoc |
 | Maven | 3.9.11 na validação | Dependências, testes e empacotamento |
 | JUnit Jupiter | 5.11.4 | Testes unitários e parametrizados |
 | Maven Surefire | 3.5.2 | Execução da classe `TesteCalculadora` |
@@ -107,7 +107,9 @@ projeto_calculadora/
 ├── scripts/
 │   ├── validar.ps1
 │   ├── gerar-docs.ps1
-│   └── capturar-evidencias.ps1
+│   ├── capturar-evidencias.ps1
+│   ├── evidencia-terminal.ps1
+│   └── capturar-terminal.ps1
 ├── .github/workflows/validacao.yml
 ├── .gitattributes
 ├── .gitignore
@@ -119,7 +121,7 @@ A estrutura padrão do Maven preserva o nome do projeto, o pacote e as classes e
 
 ## 9. Compilação e Execução
 
-Na raiz do projeto, confirme `java -version` e `mvn -version`: ambos devem usar JDK 21 ou superior.
+Na raiz do projeto, confirme `java -version` e `mvn -version`: ambos devem usar JDK 8 ou superior.
 
 ```shell
 mvn clean verify
@@ -170,19 +172,37 @@ Para atualizar as evidências no PowerShell:
 
 O script gera logs, resumo e relatório HTML. Os prints representam a execução registrada e devem ser recapturados se código ou testes forem alterados.
 
+### Capturas reais da execução no terminal
+
+As imagens abaixo foram capturadas diretamente das janelas do terminal, após executar `mvn -B -ntp clean verify`. Mostram os cenários, o resumo de 24 testes sem falhas, `BUILD SUCCESS` e a versão real do Java utilizada. Não são simulações HTML.
+
+![Terminal real executando os testes com Java 8](images/testes/terminal-java8.png)
+
+![Terminal real executando os testes com Java 21](images/testes/terminal-java21.png)
+
+Os logs completos estão em [Java 8](evidencias/compatibilidade/java8.log) e [Java 21](evidencias/compatibilidade/java21.log).
+
+Para repetir a execução em uma janela PowerShell, substitua o caminho pelo seu JDK:
+
+```powershell
+./scripts/evidencia-terminal.ps1 -JavaHome 'C:\caminho\do\jdk8' -Nome java8
+```
+
+A versão atual utiliza sintaxe e APIs de Java 8. Foi compilada e testada com um JDK 8 real; o bytecode gerado tem versão 52, compatível com Java 8. A matriz do GitHub Actions também verifica Java 11, 17 e 21.
+
 ## 11. Processo de Refatoração
 
 A tag [`v1.0-inicial`](https://github.com/VncsGiroto/projeto_calculadora/tree/v1.0-inicial) preserva a implementação funcional inicial. A branch [`Refatoracao`](https://github.com/VncsGiroto/projeto_calculadora/tree/Refatoracao) registra a evolução; a `main` recebe a versão final por merge, mantendo o histórico.
 
 | Antes | Depois | Finalidade |
 | --- | --- | --- |
-| Sequência de `if/else` | Expressão `switch` | Simplificar seleção da operação |
+| Sequência de `if/else` | `switch` tradicional, compatível com Java 8 | Simplificar seleção da operação |
 | Contas dentro de `calc` | Métodos `somar`, `subtrair`, `multiplicar` e `dividir` | Organizar responsabilidades |
 | Validação nula inline | Método `validarOperador` | Explicitar pré-condição |
 | Mensagem repetida | Constante documentada | Centralizar texto |
 | Nomes genéricos na divisão | `dividendo` e `divisor` | Melhorar leitura |
 
-A assinatura pública, as mensagens e os resultados foram preservados. Os cenários e as asserções são os mesmos da tag inicial; a única alteração na classe de testes é o preenchimento do autor no JavaDoc. A suíte foi executada nas duas versões: 24 testes aprovados em cada uma.
+A assinatura pública, as mensagens e os resultados foram preservados. Os cenários e as asserções são os mesmos da tag inicial; a classe de testes recebeu apenas identificação do autor e adaptações das APIs de UTF-8 para Java 8, sem alterar entradas, resultados esperados ou asserções. A suíte foi executada nas duas versões: 24 testes aprovados em cada uma.
 
 Veja a [comparação das versões](https://github.com/VncsGiroto/projeto_calculadora/compare/v1.0-inicial...Refatoracao) e o [diff da calculadora](evidencias/refatoracao/alteracoes.diff).
 
@@ -196,7 +216,7 @@ git diff v1.0-inicial Refatoracao -- src/main/java/calculadora/Calculadora.java
 git diff v1.0-inicial Refatoracao -- src/test
 ```
 
-O último comando apresenta apenas a identificação do autor no comentário JavaDoc, sem alteração dos testes. Para testar a versão inicial sem alterar o diretório atual:
+O último comando mostra a identificação do autor e ajustes das APIs de UTF-8 para Java 8, sem alterar os cenários ou as asserções. A tag inicial é um registro histórico anterior à adaptação e requer JDK 21. A entrega atual nas branches `main` e `Refatoracao` requer JDK 8 ou superior. Para testar a versão histórica inicial sem alterar o diretório atual:
 
 ```shell
 git worktree add --detach ../calculadora-inicial v1.0-inicial
@@ -211,7 +231,7 @@ Abra [`docs/index.html`](docs/index.html) localmente no navegador. O GitHub exib
 
 ![JavaDoc da classe Calculadora](images/javadoc/calculadora.png)
 
-Para gerar novamente no PowerShell:
+O script detecta o JDK: usa `-Xwerror` no Java 8 e `-Werror` nas versões mais novas para tratar avisos como erros. Para gerar novamente no PowerShell:
 
 ```powershell
 ./scripts/gerar-docs.ps1
@@ -220,7 +240,7 @@ Para gerar novamente no PowerShell:
 Ou diretamente com o JDK:
 
 ```shell
-javadoc -quiet -private -Xdoclint:all -Werror -encoding UTF-8 -docencoding UTF-8 -charset UTF-8 -author -version -notimestamp -d docs -sourcepath src/main/java -subpackages calculadora
+javadoc -quiet -private -Xdoclint:all -encoding UTF-8 -docencoding UTF-8 -charset UTF-8 -author -version -notimestamp -d docs -sourcepath src/main/java -subpackages calculadora
 ```
 
 ## 13. Repositório e Entrega
@@ -230,5 +250,4 @@ javadoc -quiet -private -Xdoclint:all -Werror -encoding UTF-8 -docencoding UTF-8
 - [Histórico de commits](https://github.com/VncsGiroto/projeto_calculadora/commits/main)
 - [Validação no GitHub Actions](https://github.com/VncsGiroto/projeto_calculadora/actions)
 
-O workflow compila, executa os testes e verifica o JavaDoc com JDK 21 a cada push ou pull request. A entrega reúne fontes, duas branches, evidências dos testes e da refatoração e documentação HTML.
-
+O workflow compila e executa os testes com Java 8, 11, 17 e 21, e verifica o JavaDoc com JDK 21 a cada push ou pull request. A entrega reúne fontes, duas branches, evidências dos testes e da refatoração e documentação HTML.
