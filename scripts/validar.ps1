@@ -20,7 +20,7 @@ try {
         "<tr><td>$nome</td><td>$status</td></tr>"
     }
     $saida = foreach ($caso in $xml.testsuite.testcase) {
-        if ($caso.'system-out') { [string]$caso.'system-out' }
+        if ($caso.'system-out') { $caso.'system-out'.InnerText }
     }
     $saida | Set-Content -Encoding utf8 "evidencias/$Etapa/cenarios.txt"
     $saidaHtml = [System.Net.WebUtility]::HtmlEncode(($saida -join "`n"))

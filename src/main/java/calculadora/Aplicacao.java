@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 /**
  * Interface de terminal que apresenta resultados e recupera erros de entrada.
- * @author Equipe acadêmica FinançApp
+ * @author Vinicius Giroto Francischinelli
  * @version 1.0
  */
 public final class Aplicacao {

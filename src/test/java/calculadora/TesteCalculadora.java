@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Verifica operações, contratos de erro e continuidade da aplicação.
- * @author Equipe acadêmica FinançApp
+ * @author Vinicius Giroto Francischinelli
  * @version 1.0
  */
 class TesteCalculadora {

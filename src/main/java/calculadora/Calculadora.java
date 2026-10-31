@@ -2,7 +2,7 @@ package calculadora;
 
 /**
  * Realiza operações básicas com operandos inteiros e resultado real.
- * @author Equipe acadêmica FinançApp
+ * @author Vinicius Giroto Francischinelli
  * @version 1.1
  */
 public class Calculadora {

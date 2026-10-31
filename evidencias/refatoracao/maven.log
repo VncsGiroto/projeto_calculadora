@@ -61,7 +61,7 @@ Resultado: 2.5
 Calculadora encerrada.
 
 Entrada: 5 / 0 | esperado: Não é possível dividir por zero. | obtido: Não é possível dividir por zero.
-[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.327 s -- in calculadora.TesteCalculadora
+[INFO] Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.252 s -- in calculadora.TesteCalculadora
 [INFO] 
 [INFO] Results:
 [INFO] 
@@ -73,6 +73,6 @@ Entrada: 5 / 0 | esperado: Não é possível dividir por zero. | obtido: Não é
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  4.832 s
-[INFO] Finished at: 2026-10-31T12:19:40-03:00
+[INFO] Total time:  4.189 s
+[INFO] Finished at: 2026-10-31T12:29:54-03:00
 [INFO] ------------------------------------------------------------------------
