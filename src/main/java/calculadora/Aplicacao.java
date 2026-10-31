@@ -29,7 +29,7 @@ public final class Aplicacao {
      * @param saida fluxo de saída para mensagens e resultados
      */
     public static void executar(InputStream entrada, PrintStream saida) {
-        Scanner leitor = new Scanner(entrada, StandardCharsets.UTF_8);
+        Scanner leitor = new Scanner(entrada, StandardCharsets.UTF_8.name());
         Calculadora calculadora = new Calculadora();
         saida.println("Calculadora FinançApp | formato: inteiro operador inteiro | sair");
         // Não fecha o Scanner: os fluxos pertencem a quem chamou o método.
