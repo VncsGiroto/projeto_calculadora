@@ -5,13 +5,17 @@ permissions:
 jobs:
   validar:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: ['8', '11', '17', '21']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
-          java-version: '21'
+          java-version: ${{ matrix.java }}
           cache: maven
       - run: mvn -B -ntp clean verify
       - name: Verificar JavaDoc
+        if: matrix.java == '21'
         run: javadoc -quiet -private -Xdoclint:all -Werror -encoding UTF-8 -docencoding UTF-8 -charset UTF-8 -author -version -notimestamp -d target/javadoc -sourcepath src/main/java -subpackages calculadora

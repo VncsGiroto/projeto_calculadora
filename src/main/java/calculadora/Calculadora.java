@@ -25,13 +25,13 @@ public class Calculadora {
     public double calc(int a, int b, String op) {
         validarOperador(op);
         // Cada operação mantém a conversão anterior à conta da versão inicial.
-        return switch (op) {
-            case "+" -> somar(a, b);
-            case "-" -> subtrair(a, b);
-            case "*" -> multiplicar(a, b);
-            case "/" -> dividir(a, b);
-            default -> throw new IllegalArgumentException(MENSAGEM_OPERACAO_INVALIDA);
-        };
+        switch (op) {
+            case "+": return somar(a, b);
+            case "-": return subtrair(a, b);
+            case "*": return multiplicar(a, b);
+            case "/": return dividir(a, b);
+            default: throw new IllegalArgumentException(MENSAGEM_OPERACAO_INVALIDA);
+        }
     }
 
     /**

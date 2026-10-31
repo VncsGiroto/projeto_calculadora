@@ -3,6 +3,7 @@ package calculadora;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -65,14 +66,17 @@ class TesteCalculadora {
         assertEquals(esperado, obtido.getMessage());
     }
 
-    /** Demonstra que erros sucessivos não impedem uma operação válida posterior. */
+    /**
+     * Demonstra que erros sucessivos não impedem uma operação válida posterior.
+     * @throws UnsupportedEncodingException se UTF-8 não estiver disponível
+     */
     @Test
-    void continuarDepoisDeErros() {
+    void continuarDepoisDeErros() throws UnsupportedEncodingException {
         String entradas = "5 / 0\n5 % 2\ntexto + 2\n2147483648 + 1\nlinha\n5 / 2\nsair\n9 + 9\n";
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         Aplicacao.executar(new ByteArrayInputStream(entradas.getBytes(StandardCharsets.UTF_8)),
-                new PrintStream(buffer, true, StandardCharsets.UTF_8));
-        String obtido = buffer.toString(StandardCharsets.UTF_8);
+                new PrintStream(buffer, true, StandardCharsets.UTF_8.name()));
+        String obtido = buffer.toString(StandardCharsets.UTF_8.name());
         System.out.println("Teste funcional: erros seguidos de 5 / 2 | esperado: continuidade e 2.5 | obtido:\n" + obtido);
         assertTrue(obtido.contains("Não é possível dividir por zero."));
         assertTrue(obtido.contains("Operação inválida."));
@@ -83,12 +87,15 @@ class TesteCalculadora {
         assertFalse(obtido.contains("Resultado: 18.0"));
     }
 
-    /** Verifica encerramento normal quando o fluxo de entrada termina. */
+    /**
+     * Verifica encerramento normal quando o fluxo de entrada termina.
+     * @throws UnsupportedEncodingException se UTF-8 não estiver disponível
+     */
     @Test
-    void encerrarNoFimDaEntrada() {
+    void encerrarNoFimDaEntrada() throws UnsupportedEncodingException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
         Aplicacao.executar(new ByteArrayInputStream(new byte[0]),
-                new PrintStream(buffer, true, StandardCharsets.UTF_8));
-        assertTrue(buffer.toString(StandardCharsets.UTF_8).contains("Calculadora encerrada."));
+                new PrintStream(buffer, true, StandardCharsets.UTF_8.name()));
+        assertTrue(buffer.toString(StandardCharsets.UTF_8.name()).contains("Calculadora encerrada."));
     }
 }
